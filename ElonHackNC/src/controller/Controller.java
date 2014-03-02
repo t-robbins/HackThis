@@ -44,6 +44,7 @@ public class Controller extends HttpServlet {
         actionMap.put("createaccount", "/createaccount.jsp");
         actionMap.put("userprofile", "/userprofile.jsp");
         actionMap.put("error", "/error.jsp");
+        actionMap.put("bubblerequest", "/bubble.jsp");
     }
 
     /**
@@ -83,7 +84,7 @@ public class Controller extends HttpServlet {
     	
     	if(action == null || !actionMap.containsKey(action)){
     		action = "error";
-    	} 
+    	}
  
           // Forward to the requested page.
     	request.getRequestDispatcher(actionMap.get(action)).forward(request,
