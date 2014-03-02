@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -6,17 +7,15 @@
         <c:param name="title" value="Bubble" />
 </c:import>
 
-<h2>Title of Bubble</h2>
+<h2>${parent.title}</h2>
 
-<c:forEach var="bubble" items="" varStatus="row">
+<p>Author: ${parent.author}</p>
 
-</c:forEach>
+<p>Diagram here!</p>
 
 <form method="post" action='<%=request.getContextPath() + "/Controller?action=subtopic"%>'>
                 
-                <input type="hidden" name="action" value="subtopic" />
-                
-                <h3>Have some thing to add to this Project?</h3>
+                <h3>Have something to add to this Project?</h3>
                 <p>
                 You are welcome to add an idea or new direction to this project! 
                 Fill out the form below!
@@ -30,7 +29,7 @@
             <td><textarea name="summary" rows="4" cols="50" placeholder="Please type your idea here"></textarea></td>
           </tr>
           <tr>
-            <td><input type="submit" name="Submit your idea"></td>
+            <td><input type="submit" value="Submit your idea"></td>
           </tr>
         </table>
                 

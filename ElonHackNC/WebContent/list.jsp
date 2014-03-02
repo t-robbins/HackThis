@@ -12,10 +12,8 @@
 
 <c:forEach var="name" items="${results.rows}" varStatus="row">
 
-<p><a href="${pageContext.request.contextPath}/Controller?action=bubblerequest">${name.title}</a><p>
+<p><a href="${pageContext.request.contextPath}/Controller?action=bubblerequest&bubble=${name.title}">${name.title}</a><p>
 </c:forEach>
-
-
 
 <div id="footer">
 
