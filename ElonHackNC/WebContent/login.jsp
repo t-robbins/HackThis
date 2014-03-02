@@ -5,8 +5,6 @@
 <c:import url="header.jsp">
 	<c:param name="title" value="Login to your account" />
 </c:import>
-
-   
  
  <h2> Login to your Account</h2>
  <br />

@@ -4,12 +4,9 @@
 	font-face: italic;
 }
 
-<<<<<<< HEAD
+
 body {
 	text-align: center;
-=======
-body { 
-	text-align: center; 
 	
 }
 
@@ -18,9 +15,8 @@ body {
 	width: 70%;
 	height: 60%;
 	margin-left: auto;
-        margin-right: auto;
-	
->>>>>>> origin/master
+    margin-right: auto;
+
 }
 
 .brForImage {
@@ -35,22 +31,14 @@ body {
 	background: white;
 	padding: 5px;
 	margin-left: auto;
-<<<<<<< HEAD
 	margin-right: auto;
 	text-align: center;
-=======
-        margin-right: auto;
-        text-align: center;
->>>>>>> origin/master
+
 }
 
 #footer {
 	position: relative;
-<<<<<<< HEAD
-	top: 200px;
-=======
-	/* top: 200px; */
->>>>>>> origin/master
+	top: 100px;
 	width: 90%;
 	background-color: white;
 	text-align: left;
@@ -117,10 +105,6 @@ table {
 	font-weight: bold;
 }
 
-<<<<<<< HEAD
-=======
-
-
 .ui-accordion {
 	border: 1px solid #aaaaaa;
 	color: black;
@@ -158,7 +142,7 @@ table {
                 inset 0px 1px 1px 0px rgba(0, 0, 0, .2);  
 }
 
->>>>>>> origin/master
+
 #title {
 	position: absolute;
 	left: 400px;
@@ -174,7 +158,7 @@ table {
 	top: 50px;
 }
 
-<<<<<<< HEAD
+
 .userInfo {
 	
 }
@@ -188,8 +172,3 @@ table {
 	text-align: left;
 	padding: 100;
 }
-=======
-
-
-
->>>>>>> origin/master
