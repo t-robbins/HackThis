@@ -9,8 +9,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 import beans.Bubble;
 import beans.User;
+
+import com.github.sendgrid.SendGrid;
 
 public class Account {
     private Connection conn;
@@ -208,4 +220,38 @@ public class Account {
         }
 
     }
+
+    public void sendEmail(String username, String email, String password) {
+        Context initCtx;
+        try {
+            initCtx = new InitialContext();
+            Session session = (Session) initCtx.lookup("java:comp/env/mail/SendGrid");
+
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("trobbins2@elon.edu"));
+            InternetAddress to[] = new InternetAddress[1];
+            
+            to[0] = new InternetAddress(email);
+            
+            message.setRecipients(Message.RecipientType.TO, to);
+            message.setSubject("Welcome to HackThis! Login information enclosed");
+            
+            message.setContent("Hello,"
+            		+ "\n You've recently created a HackThis account. "
+            		+ "\n Your login information follows: "
+            		+ "\nUsername: " + username  
+            		+ "\nPassword: " + password
+            		+ "\n\nClick http://elonhack.elonhacknc.cloudbees.net/Controller?action=login "
+            		+ "to login and share your ideas!"
+            		, "text/plain");
+            
+            Transport.send(message);
+
+        } catch (NamingException | MessagingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
 }

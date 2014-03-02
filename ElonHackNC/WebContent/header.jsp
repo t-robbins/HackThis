@@ -15,28 +15,34 @@
 </head>
 <body>
 
-<c:set var="currentPage" value="${ pageContext.request.requestURI }" scope="session" />
+	<c:set var="currentPage" value="${ pageContext.request.requestURI }"
+		scope="session" />
 
 	<div class="header">
-		<a href="${pageContext.request.contextPath}/index.jsp"><img src="${pageContext.request.contextPath}/images/hackthis_logo.png" height="35px"/></a>
+		<a href="${pageContext.request.contextPath}/index.jsp"><img
+			src="${pageContext.request.contextPath}/images/hackthis_logo.png"
+			height="35px" /></a>
 		<div class="headerRight">
-		<c:choose>
-			<c:when test="${ sessionScope.user.username == null}">
+			<c:choose>
+				<c:when test="${ sessionScope.user.username == null}">
 					<a
 						href="${pageContext.request.contextPath}/Controller?action=login">
 						Login</a> | <a
 						href="${pageContext.request.contextPath}/Controller?action=createaccount">
 						Create Account</a>
-				
-			</c:when>
-			<c:otherwise>
+
+				</c:when>
+				<c:otherwise>
 			
-				Welcome <a href="${pageContext.request.contextPath}/Controller?action=userprofile"> ${ sessionScope.user.username }</a>!
+				Welcome <a
+						href="${pageContext.request.contextPath}/Controller?action=userprofile">
+						${ sessionScope.user.username }</a>!
 				
-				| <a href="${pageContext.request.contextPath}/logout.jsp"> Logout</a>
-			</c:otherwise>
-			
-		</c:choose>
+				| <a href="${pageContext.request.contextPath}/logout.jsp">
+						Logout</a>
+				</c:otherwise>
+
+			</c:choose>
 		</div>
 	</div>
 
