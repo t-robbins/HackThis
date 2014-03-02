@@ -20,6 +20,20 @@ public class User {
 	public User() {
 
 	}
+	
+	public User(String username, String email, String password, String github,
+			String pictureURL, String personalWeb, String aboutMe) {
+		super();
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.github = github;
+		this.pictureURL = pictureURL;
+		this.personalWeb = personalWeb;
+		this.aboutMe = aboutMe;
+	}
+
+
 
 	
 	public User(String username, String email, String password) {
