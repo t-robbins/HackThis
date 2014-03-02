@@ -25,10 +25,15 @@
 </head>
 <body>
 
+<<<<<<< HEAD
 	<c:set var="currentPage" value="${ pageContext.request.requestURI }"
 		scope="session" />
 
 	
+=======
+<c:set var="currentPage" value="${ pageContext.request.requestURI }" scope="session" />
+<div id="container">
+>>>>>>> origin/Evan
 	<div class="header">
 		<a href="${pageContext.request.contextPath}/index.jsp"><img
 			src="${pageContext.request.contextPath}/images/hackthis_logo.png"
