@@ -16,17 +16,17 @@
 			<table>
 				<tr>
 					<td class="align-right">Email Address:</td>
-					<td><input type="text" name="email" 
+					<td><input type="text" name="email" maxlength="80"
 						value="<%=request.getAttribute("email") == null ? "" : request.getAttribute("email")%>"/></td>
 				</tr>
 				<tr>
 					<td class="align-right">Username:</td>
-					<td><input type="text" name="username" 
+					<td><input type="text" name="username" maxlength="45"
 						value="<%=request.getAttribute("username") == null ? "" : request.getAttribute("username")%>"/></td>
 				</tr>
 				<tr>
 					<td class="align-right">Password:</td>
-					<td><input type="password" name="password"
+					<td><input type="password" name="password" maxlength="45"
 						value="<%=request.getAttribute("password") == null ? "" : request.getAttribute("password")%>"/></td>
 				</tr>
 				<tr>
