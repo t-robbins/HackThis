@@ -97,10 +97,7 @@ public class Controller extends HttpServlet {
     	
     	if(action == null || !actionMap.containsKey(action)){
     		action = "error";
-    	} else if(action.equals("userprofile")){
-    		request.getRequestDispatcher("/userprofile.jsp").forward(request,
-    	              response);
-    	}
+    	} 
  
           // Forward to the requested page.
     	request.getRequestDispatcher(actionMap.get(action)).forward(request,
