@@ -183,11 +183,11 @@ public class Account {
 	public ArrayList<Bubble> getSubBubbles(String parentTitle)
 			throws SQLException {
 
-		String sql = "select ii.title, ii.summary, "
-				+ "ii.date, h.name as hack, u.username as author"
-				+ "from idea AS i join idea_association as ia "
-				+ "on (i.idea_id = ia.parent_id) "
-				+ "join idea as ii on (ia.child_id = ii.idea_id) "
+		String sql = "select ii.title as title, ii.summary as summary, ii.date as date, h.name as hack, "
+				+ "u.username as author "
+				+ "from idea AS i "
+				+ "join idea_association as a on (i.idea_id = a.parent_id) "
+				+ "join idea as ii on (a.child_id = ii.idea_id) "
 				+ "join hackathon AS h on (ii.hack_id = h.hackathon_id) "
 				+ "join user_table AS u on (ii.user_id = u.user_id) "
 				+ "where i.title=?";
@@ -199,7 +199,7 @@ public class Account {
 
 		ArrayList<Bubble> subBubbles = new ArrayList<>();
 
-		if (rs.next()) {
+		while (rs.next()) {
 			String title = rs.getString("title");
 			String summary = rs.getString("summary");
 			String author = rs.getString("author");
@@ -207,7 +207,6 @@ public class Account {
 			String date = rs.getTimestamp("date").toGMTString();
 			Bubble b = new Bubble(title, summary, date, hack, author);
 			subBubbles.add(b);
-
 		}
 
 		rs.close();

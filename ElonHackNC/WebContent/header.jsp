@@ -11,8 +11,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>${param.title}</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/style/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/style/style.css">
+<link rel="shortcut icon" href="./images/hackthis.ico">
+<link href="http://visjs.org/dist/vis.css" rel="stylesheet" type="text/css" />
+
+<script src="http://visjs.org/dist/vis.js"></script>
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<script src="./scripts/home.js"></script>
+<script src="./scripts/ideamap.js"></script>
+	
 </head>
 <body>
 

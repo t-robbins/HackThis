@@ -13,6 +13,10 @@
 
 <p>Diagram here!</p>
 
+<p>${sessionScope.diagramString}</p>
+<input type="hidden" name="diagramStr" value="${sessionScope.diagramString}" />
+
+
 <c:if test="${ sessionScope.user.username != null}">
 
 <form class ="leftAlign" method="post" action='<%=request.getContextPath() + "/Controller?action=subtopic"%>'>

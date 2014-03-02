@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -96,7 +97,24 @@ public class Controller extends HttpServlet {
 			try {
 				Bubble b = account.getBubble(bubbleName);
 				session.setAttribute("parent", b);
+				// generate string
+				String parent = "1, 0, " + b.getTitle() + ";";
+				ArrayList<Bubble> children = account
+						.getSubBubbles(b.getTitle());
+				String finalStr = parent;
+				if (children != null) {
+					String childrenStr = "";
+					for (int i = 0; i < children.size(); i++) {
+						Bubble child = children.get(i);
+						int id = i + 2;
+						childrenStr += id + ", " + 1 + ", " + child.getTitle()
+								+ ";";
+					}
+					finalStr = parent + childrenStr;
+				}
+				session.setAttribute("diagramString", finalStr);
 			} catch (SQLException e) {
+				e.printStackTrace();
 				action = "error";
 			}
 		}
@@ -154,15 +172,13 @@ public class Controller extends HttpServlet {
 					user = account.getUser(username);
 					session.setAttribute("user", user);
 
-					
 					String from = request.getParameter("from");
 
-					
 					response.sendRedirect(from);
-					
-//					
-//					request.getRequestDispatcher("/index.jsp").forward(request,
-//							response);
+
+					//
+					// request.getRequestDispatcher("/index.jsp").forward(request,
+					// response);
 
 				} else {
 					request.setAttribute("message",

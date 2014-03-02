@@ -139,6 +139,14 @@ table {
 
 }
 
+#mygraph{
+	width:90%;
+	height:90%;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid black;
+} 
+
 
 .ui-accordion-content{
 	width: 100%;  
