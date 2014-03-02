@@ -17,7 +17,9 @@
 	user.setUsername(null);
 	
 	String current = (String) session.getAttribute("currentPage");
-	
+	if(current.contains("/userprofile.jsp")||current.contains("/editprofile.jsp")){
+		current = request.getContextPath()+"/index.jsp";
+	}
 	String redirectURL = current;
 	
     response.sendRedirect(redirectURL);

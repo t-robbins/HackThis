@@ -23,35 +23,34 @@ import beans.User;
 import database.Account;
 
 /**
- * Servlet implementation class Controller 
+ * Servlet implementation class Controller
  */
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    private DataSource ds;
-    private Map<String, String> actionMap = new HashMap<>();
-    HttpSession session;
-	
+	private static final long serialVersionUID = 1L;
+	private DataSource ds;
+	private Map<String, String> actionMap = new HashMap<>();
+	HttpSession session;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Controller() {
-        // Build a Map of action parameters to pages
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public Controller() {
+		// Build a Map of action parameters to pages
 
-        actionMap.put("index", "/index.jsp");
-        actionMap.put("login", "/login.jsp");
-        actionMap.put("createaccount", "/createaccount.jsp");
-        actionMap.put("userprofile", "/userprofile.jsp");
-        actionMap.put("error", "/error.jsp");
-    }
+		actionMap.put("index", "/index.jsp");
+		actionMap.put("login", "/login.jsp");
+		actionMap.put("createaccount", "/createaccount.jsp");
+		actionMap.put("userprofile", "/userprofile.jsp");
+		actionMap.put("editprofile", "/editprofile.jsp");
+		actionMap.put("error", "/error.jsp");
+	}
 
-    /**
-     * @see Servlet#init(ServletConfig)
-     */
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-
+	/**
+	 * @see Servlet#init(ServletConfig)
+	 */
+	@Override
+	public void init(ServletConfig config) throws ServletException {
 
 		try {
 			InitialContext initContext = new InitialContext();
@@ -59,63 +58,57 @@ public class Controller extends HttpServlet {
 			Context env = (Context) initContext.lookup("java:comp/env/");
 
 			ds = (DataSource) env.lookup("jdbc/elonhackdb");
-	    	
+
 		} catch (NamingException e) {
 			e.printStackTrace();
 			throw new ServletException();
 		}
-    	
-    	
-    	
-    }
 
-    private void doForward(HttpServletRequest request,
-                           HttpServletResponse response) throws ServletException, IOException {
-        // Get the action parameter
-        String action = request.getParameter("action");
+	}
 
-        // If the action parameter is null or the map doesn't contain
-        // a page for this action, set the action to the home page
-        if (action == null || !actionMap.containsKey(action))
-            action = "error";
+	private void doForward(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// Get the action parameter
+		String action = request.getParameter("action");
 
-        // Forward to the requested page.
-        request.getRequestDispatcher(actionMap.get(action)).forward(request,
-            response);
-    }
+		// If the action parameter is null or the map doesn't contain
+		// a page for this action, set the action to the home page
+		if (action == null || !actionMap.containsKey(action))
+			action = "error";
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request,
-     *      HttpServletResponse response)
-     */
-    @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response) throws ServletException,
-                                                      IOException {
-    	
-    	String action = request.getParameter("action");    	
-    	
-    	if(action == null || !actionMap.containsKey(action)){
-    		action = "error";
-    	} 
- 
-          // Forward to the requested page.
-    	request.getRequestDispatcher(actionMap.get(action)).forward(request,
-                response);
-        
-    }
+		// Forward to the requested page.
+		request.getRequestDispatcher(actionMap.get(action)).forward(request,
+				response);
+	}
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request,
-     *      HttpServletResponse response)
-     */
-    @Override
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
-                                                       throws ServletException,
-                                                       IOException {
-    	
-    	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	@Override
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+		String action = request.getParameter("action");
+
+		if (action == null || !actionMap.containsKey(action)) {
+			action = "error";
+		}
+
+		// Forward to the requested page.
+		request.getRequestDispatcher(actionMap.get(action)).forward(request,
+				response);
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	@Override
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
 		String action = request.getParameter("action");
 
 		Connection conn = null;
@@ -139,14 +132,14 @@ public class Controller extends HttpServlet {
 
 			try {
 				if (account.login(username, password)) {
-					
-					session=request.getSession();
-					
+
+					session = request.getSession();
+
 					user = account.getUser(username);
 					session.setAttribute("user", user);
-					
-					request.getRequestDispatcher("/index.jsp").forward(
-							request, response);
+
+					request.getRequestDispatcher("/index.jsp").forward(request,
+							response);
 				} else {
 					request.setAttribute("message",
 							"email address or password not recognized");
@@ -159,7 +152,6 @@ public class Controller extends HttpServlet {
 			}
 
 		} else if (action.equals("createaccount")) {
-		
 
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
@@ -168,36 +160,39 @@ public class Controller extends HttpServlet {
 
 			request.setAttribute("email", email);
 
-			if(!password.equals(repeat)){
+			if (!password.equals(repeat)) {
 				request.setAttribute("message", "Passwords do not match");
-				request.getRequestDispatcher("/createaccount.jsp").forward(request,response);
-			}
-			else{
+				request.getRequestDispatcher("/createaccount.jsp").forward(
+						request, response);
+			} else {
 				User user = new User(username, email, password);
 				Account account = new Account(conn);
-				
-				if(!user.validate()){
-					//password or email have wrong format
+
+				if (!user.validate()) {
+					// password or email have wrong format
 					request.setAttribute("username", username);
 					request.setAttribute("password", password);
 					request.setAttribute("message", user.getMessage());
-					request.getRequestDispatcher("/createaccount.jsp").forward(request,response);
-				}
-				else{
+					request.getRequestDispatcher("/createaccount.jsp").forward(
+							request, response);
+				} else {
 					try {
-						if(account.emailExists(email)){
-							//Account already exists with this email
-							request.setAttribute("message", "An account with this email already exists");
-							request.getRequestDispatcher("/createaccount.jsp").forward(request,response);
-						}
-						else if(account.usernameExists(username)){
-							//Account already exists with this email
-							request.setAttribute("message", "An account with this username already exists");
-							request.getRequestDispatcher("/createaccount.jsp").forward(request,response);
-						}
-						else{
-							account.create(username, email,password);
-							request.getRequestDispatcher("/index.jsp").forward(request,response);
+						if (account.emailExists(email)) {
+							// Account already exists with this email
+							request.setAttribute("message",
+									"An account with this email already exists");
+							request.getRequestDispatcher("/createaccount.jsp")
+									.forward(request, response);
+						} else if (account.usernameExists(username)) {
+							// Account already exists with this email
+							request.setAttribute("message",
+									"An account with this username already exists");
+							request.getRequestDispatcher("/createaccount.jsp")
+									.forward(request, response);
+						} else {
+							account.create(username, email, password);
+							request.getRequestDispatcher("/index.jsp").forward(
+									request, response);
 						}
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
@@ -205,15 +200,68 @@ public class Controller extends HttpServlet {
 					}
 				}
 			}
-			
 
-		} else if(action.equals("userprofile")){
-    		request.getRequestDispatcher("/userprofile.jsp").forward(request,
-  	              response);
-		}
-		else {
-			request.getRequestDispatcher(actionMap.get(action)).forward(request,
-		            response);
+		} else if (action.equals("userprofile")) {
+			request.getRequestDispatcher("/userprofile.jsp").forward(request,
+					response);
+		} else if (action.equals("editprofile")) {
+
+			String email = request.getParameter("email");
+			String password = request.getParameter("password");
+			String username = request.getParameter("username");
+			String repeat = request.getParameter("repeat");
+			String aboutme = request.getParameter("aboutme");
+			String website = request.getParameter("website");
+			String github = request.getParameter("github");
+			String pictureurl = request.getParameter("pictureurl");
+			System.out.println(aboutme);
+
+			request.setAttribute("email", email);
+
+			if (!password.equals(repeat)) {
+				request.setAttribute("message", "Passwords do not match");
+				request.setAttribute("aboutMe", aboutme);
+				request.setAttribute("website", website);
+				request.setAttribute("github", github);
+				request.setAttribute("pictureurl", pictureurl);
+				request.setAttribute("password", password);
+				request.setAttribute("email", email);
+				request.setAttribute("username", username);
+				request.getRequestDispatcher("/editprofile.jsp").forward(
+						request, response);
+			} else {
+				User user = new User(username, email, password);
+				Account account = new Account(conn);
+
+				if (!user.validate()) {
+					// password or email have wrong format
+					request.setAttribute("aboutMe", aboutme);
+					request.setAttribute("website", website);
+					request.setAttribute("github", github);
+					request.setAttribute("pictureurl", pictureurl);
+					request.setAttribute("password", password);
+					request.setAttribute("email", email);
+					request.setAttribute("username", username);
+					request.setAttribute("message", user.getMessage());
+					request.getRequestDispatcher("/editprofile.jsp").forward(
+							request, response);
+				} else {
+					try {
+						account.editProfile(username, email, password, website, github, pictureurl, aboutme);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					String contextpath = request.getContextPath() + "/index.jsp";
+					session.setAttribute("currentPage", contextpath);
+					request.getRequestDispatcher("/logout.jsp").forward(
+							request, response);
+				}
+			}
+
+		} else {
+			request.getRequestDispatcher(actionMap.get(action)).forward(
+					request, response);
 		}
 
 		try {

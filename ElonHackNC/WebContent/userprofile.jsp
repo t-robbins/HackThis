@@ -23,6 +23,8 @@
 	<sql:param>${user.username}</sql:param>
 </sql:query>
 
+<div class="button topRight"><a href="${pageContext.request.contextPath}/Controller?action=editprofile">Edit profile</a></div>
+
 <c:choose>
 	<c:when test="${not empty user }">
 
@@ -56,8 +58,8 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2" class="bold leftPadding">
-						<p>About Me:</p>
+					<td colspan="2" class="leftPadding">
+						<p class="">About Me:</p>
 						<p>
 							<c:out value="${user.aboutMe}" />
 						</p>
@@ -101,10 +103,5 @@
 </div>
 </div>
 <br />
-<div id="footer">
-
-	<p>Copyright &copy; ElonHackNC</p>
-
-</div>
 </body>
 </html>
