@@ -33,8 +33,6 @@ public class User {
 		this.aboutMe = aboutMe;
 	}
 
-
-
 	
 	public User(String username, String email, String password) {
 		this.username = username;

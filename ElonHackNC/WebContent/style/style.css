@@ -146,7 +146,6 @@ table {
 	color: black;
 	width: 80%;
 	margin-left: auto;
-<<<<<<< HEAD
     margin-right: auto;
         
         
@@ -200,10 +199,6 @@ table {
     height:20px;
 }
 
-=======
-	margin-right: auto;
-}
-
 .ui-accordion-header {
 	background-color: #ccc;
 	margin: 0px;
@@ -232,7 +227,6 @@ table {
 		0px rgba(0, 0, 0, .2);
 }
 
->>>>>>> origin/Evan
 #title {
 	position: absolute;
 	left: 400px;

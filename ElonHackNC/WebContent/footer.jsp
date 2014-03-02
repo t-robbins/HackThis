@@ -8,6 +8,5 @@
 <p>Copyright &copy; ElonHackNC </p>
 
 </div>
-</div>
 </body>
 </html>

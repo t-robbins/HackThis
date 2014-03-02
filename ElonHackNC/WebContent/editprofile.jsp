@@ -71,7 +71,7 @@
 		</tr>
 		<tr>
 			<td class="align-right" colspan="2"><input type="submit"
-				value="Create Account" /></td>
+				value="Apply Changes" /></td>
 		</tr>
 	</table>
 

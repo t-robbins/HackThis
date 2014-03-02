@@ -44,13 +44,9 @@ public class Controller extends HttpServlet {
 		actionMap.put("login", "/login.jsp");
 		actionMap.put("createaccount", "/createaccount.jsp");
 		actionMap.put("userprofile", "/userprofile.jsp");
-<<<<<<< HEAD
 		actionMap.put("error", "/error.jsp");
 		actionMap.put("bubblerequest", "/bubble.jsp");
-=======
 		actionMap.put("editprofile", "/editprofile.jsp");
-		actionMap.put("error", "/error.jsp");
->>>>>>> origin/Evan
 	}
 
 	/**
@@ -73,24 +69,6 @@ public class Controller extends HttpServlet {
 
 	}
 
-<<<<<<< HEAD
-=======
-	private void doForward(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// Get the action parameter
-		String action = request.getParameter("action");
-
-		// If the action parameter is null or the map doesn't contain
-		// a page for this action, set the action to the home page
-		if (action == null || !actionMap.containsKey(action))
-			action = "error";
-
-		// Forward to the requested page.
-		request.getRequestDispatcher(actionMap.get(action)).forward(request,
-				response);
-	}
-
->>>>>>> origin/Evan
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -99,29 +77,6 @@ public class Controller extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-<<<<<<< HEAD
-=======
-		String action = request.getParameter("action");
-
-		if (action == null || !actionMap.containsKey(action)) {
-			action = "error";
-		}
-
-		// Forward to the requested page.
-		request.getRequestDispatcher(actionMap.get(action)).forward(request,
-				response);
-
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-
->>>>>>> origin/Evan
 		String action = request.getParameter("action");
 		session = request.getSession();
 
@@ -218,7 +173,6 @@ public class Controller extends HttpServlet {
 					user = account.getUser(username);
 					session.setAttribute("user", user);
 
-<<<<<<< HEAD
 					String from = request.getParameter("from");
 
 					response.sendRedirect(from);
@@ -227,10 +181,6 @@ public class Controller extends HttpServlet {
 					// request.getRequestDispatcher("/index.jsp").forward(request,
 					// response);
 
-=======
-					request.getRequestDispatcher("/index.jsp").forward(request,
-							response);
->>>>>>> origin/Evan
 				} else {
 					request.setAttribute("message",
 							"email address or password not recognized");
@@ -281,13 +231,9 @@ public class Controller extends HttpServlet {
 							request.getRequestDispatcher("/createaccount.jsp")
 									.forward(request, response);
 						} else {
-<<<<<<< HEAD
 							// Account can be created
 							account.create(username, email, password);
 							account.sendEmail(username, email, password);
-=======
-							account.create(username, email, password);
->>>>>>> origin/Evan
 							request.getRequestDispatcher("/index.jsp").forward(
 									request, response);
 						}
@@ -301,7 +247,6 @@ public class Controller extends HttpServlet {
 		} else if (action.equals("userprofile")) {
 			request.getRequestDispatcher("/userprofile.jsp").forward(request,
 					response);
-<<<<<<< HEAD
 		} else if (action.equals("subtopic")) {
 			// should probably check that the idea title is unique
 
@@ -325,10 +270,6 @@ public class Controller extends HttpServlet {
 			}
 			request.getRequestDispatcher("/bubble.jsp").forward(request,
 					response);
-		}
-
-		else {
-=======
 		} else if (action.equals("editprofile")) {
 
 			String email = request.getParameter("email");
@@ -384,8 +325,9 @@ public class Controller extends HttpServlet {
 				}
 			}
 
-		} else {
->>>>>>> origin/Evan
+		} 
+
+		else {
 			request.getRequestDispatcher(actionMap.get(action)).forward(
 					request, response);
 		}

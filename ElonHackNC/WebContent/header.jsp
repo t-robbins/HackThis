@@ -11,9 +11,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>${param.title}</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/style/style.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/style/style.css">
 <link rel="shortcut icon" href="./images/hackthis.ico">
-<link href="http://visjs.org/dist/vis.css" rel="stylesheet" type="text/css" />
+<link href="http://visjs.org/dist/vis.css" rel="stylesheet"
+	type="text/css" />
 
 <script src="http://visjs.org/dist/vis.js"></script>
 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
@@ -21,19 +23,15 @@
 
 <script src="./scripts/home.js"></script>
 <script src="./scripts/ideamap.js"></script>
-	
+
 </head>
 <body>
 
-<<<<<<< HEAD
-	<c:set var="currentPage" value="${ pageContext.request.requestURI }"
+
+<c:set var="currentPage" value="${ pageContext.request.requestURI }"
 		scope="session" />
 
-	
-=======
-<c:set var="currentPage" value="${ pageContext.request.requestURI }" scope="session" />
-<div id="container">
->>>>>>> origin/Evan
+
 	<div class="header">
 		<a href="${pageContext.request.contextPath}/index.jsp"><img
 			src="${pageContext.request.contextPath}/images/hackthis_logo.png"
@@ -46,7 +44,7 @@
 						Login</a> | <a
 						href="${pageContext.request.contextPath}/Controller?action=createaccount">
 						Create Account</a>
-						
+
 				</c:when>
 				<c:otherwise>
 			
