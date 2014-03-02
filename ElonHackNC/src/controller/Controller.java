@@ -132,7 +132,11 @@ public class Controller extends HttpServlet {
 		try {
 			conn = ds.getConnection();
 		} catch (SQLException e) {
-			throw new ServletException();
+			try {
+				conn = ds.getConnection();
+			} catch (SQLException e1) {
+				throw new ServletException();
+			}
 		}
 
 		if (action.equals("dologin")) {

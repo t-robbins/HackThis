@@ -8,7 +8,12 @@
 
 <sql:setDataSource var="ds" dataSource="jdbc/elonhackdb" />
 
-<sql:query dataSource="${ds}" sql="select * from idea" var="results" />
+<sql:setDataSource dataSource="${ds}" />
+
+<sql:query var="results" >
+    select idea.title from idea join hackathon as h on (idea.hack_id = h.hackathon_id) where h.name =?
+    <sql:param value="${param.hackathon}" />
+</sql:query>
 
 <c:forEach var="name" items="${results.rows}" varStatus="row">
 

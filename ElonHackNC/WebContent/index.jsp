@@ -39,9 +39,9 @@
 	<div>
 
 		<br>
-		<a href="<c:url value="/Controller?hackathon=HackVTf13"/>">HackVT
+		<a href="<c:url value="/list.jsp?hackathon=HackVT"/>">HackVT
 			Fall 2013</a> <br>
-		<a href="<c:url value="/Controller?hackathon=HackDukef13"/>">HackDuke
+		<a href="<c:url value="/list.jsp?hackathon=HackDuke"/>">HackDuke
 			Fall 2013</a>
 
 	</div>
@@ -51,9 +51,9 @@
 	<div>
 
 		<br>
-		<a href="<c:url value="/Controller?hackathon=HackNCs14"/>">HackNC
+		<a href="<c:url value="/list.jsp?hackathon=HackNC"/>">HackNC
 			Spring 2014 </a> &lt;&lt;This link works<br>
-		<a href="<c:url value="/Controller?hackathon=HackElons14"/>">HackElon
+		<a href="<c:url value="/list.jsp?hackathon=HackElon"/>">HackElon
 			Spring 2014</a>
 
 	</div>
@@ -63,13 +63,13 @@
 	<div>
 
 		<br>
-		<a href="<c:url value="/Controller?hackathon=HackThats14"/>">HackThat
+		<a href="<c:url value="/list.jsp?hackathon=HackThat"/>">HackThat
 			Spring 2014</a> <br>
-		<a href="<c:url value="/Controller?hackathon=HackWhats14"/>">HackWhat
+		<a href="<c:url value="/list.jsp?hackathon=HackWhat"/>">HackWhat
 			Spring 2014</a> <br>
-		<a href="<c:url value="/Controller?hackathon=HackOtherf14"/>">HackOther
+		<a href="<c:url value="/list.jsp?hackathon=HackOther"/>">HackOther
 			Fall 2014</a> <br>
-		<a href="<c:url value="/Controller?hackathon=HackWhichf14"/>">HackWhich
+		<a href="<c:url value="/list.jsp?hackathon=HackWhich"/>">HackWhich
 			Fall 2014</a>
 
 	</div>

@@ -13,7 +13,9 @@
 
 <p>Diagram here!</p>
 
-<form method="post" action='<%=request.getContextPath() + "/Controller?action=subtopic"%>'>
+<c:if test="${ sessionScope.user.username != null}">
+
+<form class ="leftAlign" method="post" action='<%=request.getContextPath() + "/Controller?action=subtopic"%>'>
                 
                 <h3>Have something to add to this Project?</h3>
                 <p>
@@ -21,7 +23,7 @@
                 Fill out the form below!
                 </p>
                 
-               <table>
+               <table class="leftAlign">
           <tr>
             <td><input type="text" name="title" value="" placeholder="Title of new idea"/></td>
           </tr>
@@ -34,7 +36,7 @@
         </table>
                 
 </form> 
- 
+ </c:if>
  
 
 <c:import url="footer.jsp" />
