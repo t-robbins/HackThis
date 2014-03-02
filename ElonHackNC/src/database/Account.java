@@ -185,41 +185,61 @@ public class Account {
 
 	public ArrayList<Bubble> getSubBubbles(String parentTitle)
 			throws SQLException {
-
-		String sql = "select ii.title as title, ii.summary as summary, ii.date as date, h.name as hack, "
-				+ "u.username as author "
-				+ "from idea AS i "
-				+ "join idea_association as a on (i.idea_id = a.parent_id) "
-				+ "join idea as ii on (a.child_id = ii.idea_id) "
-				+ "join hackathon AS h on (ii.hack_id = h.hackathon_id) "
-				+ "join user_table AS u on (ii.user_id = u.user_id) "
-				+ "where i.title=?";
+		
+		String sql = "select idea_id from idea where title =?"; 
 
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, parentTitle);
 
 		ResultSet rs = stmt.executeQuery();
-
-		ArrayList<Bubble> subBubbles = new ArrayList<>();
-
-		while (rs.next()) {
-			String title = rs.getString("title");
-			String summary = rs.getString("summary");
-			String author = rs.getString("author");
-			String hack = rs.getString("hack");
-			String date = rs.getTimestamp("date").toGMTString();
-			Bubble b = new Bubble(title, summary, date, hack, author);
-			subBubbles.add(b);
+		
+		int pid = 0; 
+		
+		if(rs.next()) {
+			pid = rs.getInt("idea_id");
 		}
-
-		rs.close();
-		stmt.close();
-
-		if (subBubbles.size() > 0) {
-			return subBubbles;
+		
+		rs.close(); 
+		stmt.close(); 
+		
+		if(pid != 0) {
+			String sql2 = "select title, summary, date, name as hack, username as author "
+					+ "from idea AS i "
+					+ "join idea_association as a on (i.idea_id = a.child_id) "
+					+ "join hackathon AS h on (i.hack_id = h.hackathon_id) "
+					+ "join user_table AS u on (i.user_id = u.user_id) where a.parent_id =?";
+			
+			PreparedStatement stmt2 = conn.prepareStatement(sql2); 
+			stmt2.setInt(1, pid);
+			
+			ResultSet rs2 = stmt2.executeQuery(); 
+			
+			ArrayList<Bubble> subBubbles = new ArrayList<>();
+			
+			while(rs2.next()) {
+				String title = rs2.getString("title");
+				String summary = rs2.getString("summary");
+				String author = rs2.getString("author");
+				String hack = rs2.getString("hack");
+				String date = rs2.getTimestamp("date").toGMTString();
+				Bubble b = new Bubble(title, summary, date, hack, author);
+				subBubbles.add(b);
+			}
+			
+			//subBubbles.remove(0); 
+			
+			rs2.close();
+			stmt2.close();
+			
+			if (subBubbles.size() > 0) {
+				return subBubbles;
+			} else {
+				return null;
+			}
 		} else {
-			return null;
+			return null; 
 		}
+
 
 	}
 
@@ -259,6 +279,48 @@ public class Account {
 
 	}
 
+	public void sendEmailNote(String username, String author, String title) throws SQLException{
+		String sql = "select email from user_table where username =?"; 
+
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, author);
+
+		ResultSet rs = stmt.executeQuery();
+		
+		String sendTo = "";
+		if(rs.next()) {
+			sendTo = rs.getString("email");
+		}
+		
+		Context initCtx;
+		try {
+			initCtx = new InitialContext();
+			Session session = (Session) initCtx
+					.lookup("java:comp/env/mail/SendGrid");
+
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("trobbins2@elon.edu"));
+			InternetAddress to[] = new InternetAddress[1];
+
+			to[0] = new InternetAddress(sendTo);
+
+			message.setRecipients(Message.RecipientType.TO, to);
+			message.setSubject("HackThis | You've inspired someone!");
+
+			message.setContent(
+					"This is just a notice to let you know your " + title + " hack has inspired someone!",
+					"text/plain");
+
+			Transport.send(message);
+
+		} catch (NamingException | MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
 	public void createTopic(String title, String summary, String author,
 			String hackathon, Bubble parent) throws SQLException {
 
@@ -306,27 +368,44 @@ public class Account {
 
 				stmtInsert.close();
 
-				String parentid = "select user_id from user_table where username=?";
-				PreparedStatement pstmt = conn.prepareStatement(parentid);
-				pstmt.setString(1, parent.getAuthor());
+				String childid = "select idea_id from idea where title=?";
+				PreparedStatement cstmt = conn.prepareStatement(childid);
+				cstmt.setString(1, title);
+
+				ResultSet crs = cstmt.executeQuery();
+
+				int cid = 0;
+
+				if (crs.next()) {
+					cid = crs.getInt("idea_id");
+				}
+
+				crs.close();
+				cstmt.close();
+				
+				String parentid = "select idea_id from idea where title=?";
+				PreparedStatement pstmt = conn.prepareStatement(childid);
+				pstmt.setString(1, parent.getTitle());
 
 				ResultSet prs = pstmt.executeQuery();
 
 				int pid = 0;
 
 				if (prs.next()) {
-					pid = prs.getInt("user_id");
+					pid = prs.getInt("idea_id");
 				}
 
 				prs.close();
 				pstmt.close();
+				
+				
 
-				if (pid != 0) {
+				if (cid != 0) {
 					String insert2 = "insert into idea_association (parent_id, child_id) "
 							+ "values (?, ?)";
 					PreparedStatement stmt3 = conn.prepareStatement(insert2);
 					stmt3.setInt(1, pid);
-					stmt3.setInt(2, userid);
+					stmt3.setInt(2, cid);
 
 					stmt3.executeUpdate();
 
@@ -336,6 +415,36 @@ public class Account {
 
 		}
 
+	}
+	
+	public ArrayList<String> getHacks(String hackathon) throws SQLException{
+		
+		String sql = "select idea.title as title from idea join hackathon as h on (idea.hack_id = h.hackathon_id) where h.name =?"; 
+
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, hackathon);
+		
+		System.out.println(hackathon);
+
+		ResultSet rs = stmt.executeQuery();
+		
+		ArrayList<String> hacks = new ArrayList<>();  
+		
+		while(rs.next()) {
+			String hack = rs.getString("title"); 
+			hacks.add(hack); 
+			System.out.println("hack: "+ hack); 
+		}
+		
+		rs.close(); 
+		stmt.close(); 
+		
+		if (hacks.size() > 0) {
+			return hacks;
+		} else {
+			return null;
+		}
+		
 	}
 	
 	public void editProfile(String username, String email, String password,
@@ -371,6 +480,8 @@ public class Account {
 			stmt2.close();
 		}
 	}
+
+	
 
 
 }

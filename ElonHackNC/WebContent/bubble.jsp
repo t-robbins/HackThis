@@ -11,10 +11,10 @@
 
 <p>Author: ${parent.author}</p>
 
-<p>Diagram here!</p>
+<div id="mygraph"></div>
 
 <p>${sessionScope.diagramString}</p>
-<input type="hidden" name="diagramStr" value="${sessionScope.diagramString}" />
+<input type="hidden" name="diagramStr" value="${sessionScope.diagramString}" id="testThis"/>
 
 
 <c:if test="${ sessionScope.user.username != null}">

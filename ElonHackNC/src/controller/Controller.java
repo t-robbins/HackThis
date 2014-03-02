@@ -24,6 +24,7 @@ import beans.Bubble;
 import beans.User;
 import database.Account;
 
+
 /**
  * Servlet implementation class Controller
  */
@@ -47,6 +48,7 @@ public class Controller extends HttpServlet {
 		actionMap.put("error", "/error.jsp");
 		actionMap.put("bubblerequest", "/bubble.jsp");
 		actionMap.put("editprofile", "/editprofile.jsp");
+		actionMap.put("list", "/list.jsp");
 	}
 
 	/**
@@ -120,6 +122,30 @@ public class Controller extends HttpServlet {
 			}
 		}
 
+		if(action.equals("list")) {
+		String hackathon = request.getParameter("hackathon");
+		//if(!hackathon.equals(null)){
+			Account account = new Account(conn);
+			try {
+				ArrayList<String> hacks = account.getHacks(hackathon);
+				String hackStr = ""; 
+				if (hacks != null) { 
+				for(int i = 0; i < hacks.size(); i ++) {
+					hackStr += (i+1) + ", " + 0 + ", " + hacks.get(i)
+							+ ";";
+				}
+				}
+				session.setAttribute("hackString", hackStr);
+				 
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+		}
+		//}
+		
+		
 		// Forward to the requested page.
 		request.getRequestDispatcher(actionMap.get(action)).forward(request,
 				response);
@@ -261,6 +287,10 @@ public class Controller extends HttpServlet {
 
 			try {
 				account.createTopic(title, summary, author, hackathon, b);
+				
+				if(!u.getUsername().equals(b.getAuthor())){
+					account.sendEmailNote(u.getUsername(), b.getAuthor(), b.getTitle());
+				}
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

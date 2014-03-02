@@ -6,6 +6,18 @@
         <c:param name="title" value="Elon HackNC Homepage" />
 </c:import>
 
+<p id="testTis">${sessionScope.hackString}</p>
+<input type="text" name="hackStr" value="${sessionScope.hackString}" id="testThis"/>
+
+
+
+<%-- <form method="post" id="exploreTest" action="${pageContext.request.contextPath}/Controller?action=bubblerequest&bubble="> --%>
+<!-- <button id="explore">Explore Selected Idea</button> -->
+<!-- </form> -->
+
+<div id="mygraph"></div>
+ 
+
 <sql:setDataSource var="ds" dataSource="jdbc/elonhackdb" />
 
 <sql:setDataSource dataSource="${ds}" />
