@@ -18,7 +18,7 @@
 <c:set var="currentPage" value="${ pageContext.request.requestURI }" scope="session" />
 
 	<div class="header">
-		<img src="${pageContext.request.contextPath}/images/hackthis_logo.png" height="35px"/>
+		<a href="${pageContext.request.contextPath}/index.jsp"><img src="${pageContext.request.contextPath}/images/hackthis_logo.png" height="35px"/></a>
 		<div class="headerRight">
 		<c:choose>
 			<c:when test="${ sessionScope.user.username == null}">
