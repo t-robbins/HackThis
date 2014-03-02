@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!DOCTYPE html>
 <!--
@@ -18,6 +19,7 @@
 	<c:set var="currentPage" value="${ pageContext.request.requestURI }"
 		scope="session" />
 
+	
 	<div class="header">
 		<a href="${pageContext.request.contextPath}/index.jsp"><img
 			src="${pageContext.request.contextPath}/images/hackthis_logo.png"
@@ -26,11 +28,11 @@
 			<c:choose>
 				<c:when test="${ sessionScope.user.username == null}">
 					<a
-						href="${pageContext.request.contextPath}/Controller?action=login">
+						href="${pageContext.request.contextPath}/Controller?action=login&from=${pageContext.request.requestURI}?${pageContext.request.queryString}">
 						Login</a> | <a
 						href="${pageContext.request.contextPath}/Controller?action=createaccount">
 						Create Account</a>
-
+						
 				</c:when>
 				<c:otherwise>
 			

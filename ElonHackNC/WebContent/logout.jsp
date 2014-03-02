@@ -21,6 +21,7 @@
 	String redirectURL = current;
 	
     response.sendRedirect(redirectURL);
+
 %>
 
 </body>

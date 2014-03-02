@@ -12,6 +12,8 @@
 		<form method="post"
 			action="<%=request.getContextPath() + "/Controller?action=dologin"%>">
 			<input type="hidden" name="action" value="dologin" />
+			<input type="hidden" name="from" value="${param.from}">
+			
 			<table>
 				<tr>
 					<td class="align-right">Username:</td>
