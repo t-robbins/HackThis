@@ -5,13 +5,7 @@
 
 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
-<script language="javascript" type="text/javascript">
-$(function() {
-    //initialize accordion        
-	 $( "#accordion" ).accordion(); 
-});
-</script>
+<script src="./scripts/home.js"></script>
 
 <c:import url="header.jsp">
 	<c:param name="title" value="Elon HackNC Homepage" />
