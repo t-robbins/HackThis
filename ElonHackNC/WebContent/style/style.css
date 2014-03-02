@@ -59,6 +59,9 @@ body {
 }
 
 .headerRight {
+	position:absolute;
+	top: 15px;
+	right: 10px;
 	text-align: right;
 	margin-right: 10px;
 }
@@ -110,12 +113,12 @@ table {
 	color: black;
 	width: 80%;
 	margin-left: auto;
-        margin-right: auto;
+    margin-right: auto;
         
         
 }
-.ui-accordion-header{
-	background-color: #ccc;  
+ .ui-accordion-header {
+		background-color: #ccc;  
         margin: 0px;
         color: #fff;  
         line-height: 42px;  
@@ -128,11 +131,11 @@ table {
     border-left: 1px solid rgba(0, 0, 0, .2);  
     border-bottom: 1px solid rgba(0, 0, 0, .2);  
     border-top: 1px solid rgba(250, 250, 250, .2);    
-	
+
 }
+
+
 .ui-accordion-content{
-	/* color: red;
-        background-color: #FFBD57; */
 	width: 100%;  
         background-color: #f3f3f3;  
         color: #777;  
@@ -142,6 +145,18 @@ table {
                 inset 0px 1px 1px 0px rgba(0, 0, 0, .2);  
 }
 
+.iconOpen {
+    background:url('YOUR Image HERE') no-repeat !important;
+    background-size:20px !important;
+    width:20px;
+    height:20px;
+}
+.iconClosed {
+    background:url('YOUR Image HERE') no-repeat -5px !important;
+    background-size:30px !important;
+    width:20px;
+    height:20px;
+}
 
 #title {
 	position: absolute;

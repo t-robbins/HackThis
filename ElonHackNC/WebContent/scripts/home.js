@@ -5,7 +5,8 @@ $(document).ready(function() {
 });
 
 $(function() {
-    $( "#accordion" ).accordion({
-      
-    });
-  });
+    //initialize accordion        
+	 $( "#accordion" ).accordion({
+	      heightStyle: "fill"
+	    });
+});
