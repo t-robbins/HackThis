@@ -69,20 +69,6 @@ public class Controller extends HttpServlet {
     	
     }
 
-    private void doForward(HttpServletRequest request,
-                           HttpServletResponse response) throws ServletException, IOException {
-        // Get the action parameter
-        String action = request.getParameter("action");
-
-        // If the action parameter is null or the map doesn't contain
-        // a page for this action, set the action to the home page
-        if (action == null || !actionMap.containsKey(action))
-            action = "error";
-
-        // Forward to the requested page.
-        request.getRequestDispatcher(actionMap.get(action)).forward(request,
-            response);
-    }
 
     /**
      * @see HttpServlet#doGet(HttpServletRequest request,
