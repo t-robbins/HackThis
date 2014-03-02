@@ -4,7 +4,6 @@
 $(document).ready(function() {
 	
   var ideaString = $("#bubbles").text();
-  //console.log(ideaArray[i].substring(2,3));
   var ideaArray = ideaString.split(";");
   var nodes = [];
   var edges = [];
@@ -15,7 +14,7 @@ $(document).ready(function() {
 	  var one = ideaArray[i].substring(0,1);
 	  var two = ideaArray[i].substring(6);
 	  nodes[i]={id: parseInt(one), label: two};
-	  console.log(nodes[i]);
+	 // console.log(nodes[i]);
   }
   
   for (var i = 0; i < ideaArray.length - 1; i++)
@@ -49,14 +48,13 @@ $(document).ready(function() {
   var graph = new vis.Graph(container, data, options);
   
   
-  graph.on('select', function(properties) {
-	  $("#explore").removeAttr("disabled");
-	  console.log(properties);
-	  });
+//  graph.on('select', function(properties) {
+//	  $("#explore").removeAttr("disabled");
+//	  console.log(properties);
+//	  });
   
    $("#explore").click(function(){
     for (var i = 0; i < nodes.length; i++) {
-    	console.log(nodes[i].id);
         if (nodes[i].id === parseInt(graph.getSelection().nodes[0])){
             
         }
@@ -64,26 +62,21 @@ $(document).ready(function() {
   });
    
    $("#test").click(function(){
-	   console.log($("#in").val());
-	   console.log(nodes[nodes.length-1]);
-	   var temp;
-	   if(graph.getSelection()){
+	   
+	   var temp = "";
+	   if(graph.getSelection().nodes.length !== 0){
+		   
 		   for (var i = 0; i < nodes.length; i++) {
-		    	console.log(nodes[i].id);
+		    	
 		        if (nodes[i].id === parseInt(graph.getSelection().nodes[0])){
-		        	console.log(nodes[i].id);
+		        	
 		        	temp = nodes[i].id;
 		        }
 		    }
-		   console.log(temp);
+		   
 		   edges[edges.length] = {from: parseInt(temp), to: parseInt(nodes.length+1)};
 	   }
 	    nodes[nodes.length]={id: nodes.length+1, label: $("#in").val()};
-	    
-	    console.log(nodes[nodes.length-1]);
-	    console.log(edges[nodes.length-1]);
-	    
-	    //graph = new vis.Graph(container, data, options);
 	    
 	    graph = new vis.Graph(container, data, options);
 	  });

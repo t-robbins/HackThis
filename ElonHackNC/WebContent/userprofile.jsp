@@ -35,7 +35,7 @@
 						alt="./images/userPicture.png" width="200"></td>
 
 					<td>
-						<table class="userTable">
+						<table>
 							<tr>
 								<td><span class="bold">Username: </span> <c:out
 										value="${user.username}" /></td>
@@ -57,14 +57,16 @@
 						</table>
 					</td>
 				</tr>
+				
 				<tr>
 					<td colspan="2" class="leftPadding">
-						<p class="">About Me:</p>
+						<p class="bold">About Me:</p>
 						<p>
 							<c:out value="${user.aboutMe}" />
 						</p>
 					</td>
 				</tr>
+				<tr><td colspan="2"><hr class="colorLine"/></td></tr>
 				<tr>
 					<td width="300">
 						<table>

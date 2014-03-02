@@ -70,7 +70,7 @@
 					.getAttribute("aboutme")%></textarea></td>
 		</tr>
 		<tr>
-			<td class="align-right" colspan="2"><input type="submit"
+			<td class="align-right leftPadding" colspan="2"><input type="submit"
 				value="Apply Changes" /></td>
 		</tr>
 	</table>
